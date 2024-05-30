@@ -15,7 +15,10 @@ public class GetTodayHoroscopeByUser {
         String url = "https://horo.mail.ru/prediction/"+zodiacName+"/today/";
         Document document = Jsoup.connect(url).get();
         Elements contentElem = document.select("p");
-        String result = contentElem.toString().replaceAll("<p>|</p>", "");
-        return result;
+        StringBuilder result = new StringBuilder();
+        for (Element elem : contentElem) {
+            result.append(elem.text()).append("\n");
+        }
+        return result.toString().trim();
     }
 }
